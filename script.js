@@ -21,14 +21,6 @@ function atualizarP() {
     }
   }
 
-  function soUm () {
-    var cliqueHabilitado = true;
-
-    if (cliqueHabilitado) {
-      
-    }
-  }
-
   tabela.addEventListener("click", function(event) {
     if (event.target.tagName === "TD") {
       var acao = event.target.getAttribute("data-action");
@@ -97,7 +89,6 @@ function atualizarP() {
           numeroNumero = parseInt(numeroString);
           numeroString = '';
           subtracao += numeroNumero;
-          console.log(subtracao)
           adicao = 0;
           multiplicacao = 0;
           divisao = 0;
@@ -145,16 +136,9 @@ function atualizarP() {
               total = porcento * parseInt(numeroString);
             }
           }
-          console.log ("numeroNumero", numeroNumero, 'numeroString',numeroString, "total",total )
-          div.innerHTML = numeroString;
-          span.innerHTML = total;
-          break;
-          
+          break;  
         default:
-          div.innerHTML = numeroString;
-          span.innerHTML = total;
       }
-
       div.innerHTML = numeroString;
       span.innerHTML = total;
     }
