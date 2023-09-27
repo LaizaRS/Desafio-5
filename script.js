@@ -3,21 +3,36 @@ function atualizarP() {
   var span = document.getElementById("total");
 
   var numeroString = '';
-  var numeroNumero = 0;
-  let adicao = 0;
-  let subtracao = 0;
-  let multiplicacao = 0;
-  let divisao = 0;
-  let porcento = 0;
-  var total = '0';
+  var total = 0;
+  var operacaoPendente = null; 
 
   var tabela = document.getElementById("minhaTabela");
 
   function adicionarNumero(numero) {
-    if (numeroString === "0") {
+    if (numeroString === "0" || numeroString === total.toString()) {
       numeroString = numero;
     } else {
       numeroString += numero;
+    }
+  }
+
+  function executarOperacaoPendente() {
+    var valorAtual = parseFloat(numeroString);
+    if (!isNaN(valorAtual)) {
+      if (operacaoPendente === "adicao") {
+        total += valorAtual;
+      } else if (operacaoPendente === "subtracao") {
+        total -= valorAtual;
+      } else if (operacaoPendente === "multiplicacao") {
+        total *= valorAtual;
+      } else if (operacaoPendente === "divisao") {
+        total /= valorAtual;
+      } else if (operacaoPendente === "porcentagem") {
+        total = (total * valorAtual) / 100;
+      } else {
+        total = valorAtual; 
+      }
+      numeroString = total.toString();
     }
   }
 
@@ -29,20 +44,12 @@ function atualizarP() {
         case "acaoCE":
           numeroString = "0";
           total = 0;
-          adicao = 0;
-          subtracao = 0;
-          multiplicacao = 0;
-          divisao = 0;
-          porcento = 0;
+          operacaoPendente = null;
           break;
         case "acaoC":
           numeroString = "0";
           total = 0;
-          adicao = 0;
-          subtracao = 0;
-          multiplicacao = 0;
-          divisao = 0;
-          porcento = 0;
+          operacaoPendente = null;
           break;
 
         case "acao0":
@@ -80,65 +87,29 @@ function atualizarP() {
           break
 
         case "acaoAdicao":
-          numeroNumero = parseFloat(numeroString);
-          numeroString = '';
-          adicao += numeroNumero;
-          subtracao = 0;
-          multiplicacao = 0;
-          divisao = 0;
-          porcento = 0;
+          executarOperacaoPendente();
+          operacaoPendente = "adicao";
           break;
         case "acaoSubtracao":
-          numeroNumero = parseFloat(numeroString);
-          numeroString = '';
-          subtracao += numeroNumero;
-          adicao = 0;
-          multiplicacao = 0;
-          divisao = 0;
-          porcento = 0;
+          executarOperacaoPendente();
+          operacaoPendente = "subtracao";
           break;
         case "acaoMultiplicacao":
-          numeroNumero = parseFloat(numeroString);
-          numeroString = '';
-          multiplicacao = numeroNumero;
-          adicao = 0;
-          subtracao = 0;
-          divisao = 0;
-          porcento = 0;
+          executarOperacaoPendente();
+          operacaoPendente = "multiplicacao";
           break;
         case "acaoDivisao":
-          numeroNumero = parseFloat(numeroString);
-          numeroString = '';
-          divisao += numeroNumero;
-          adicao = 0;
-          subtracao = 0;
-          multiplicacao = 0;
-          porcento = 0;
+          executarOperacaoPendente();
+          operacaoPendente = "divisao";
           break;
-        case "acaoPorcento":
-          numeroNumero = parseFloat(numeroString) / 100;
-          numeroString = '';
-          porcento += numeroNumero;
-          adicao = 0;
-          subtracao = 0;
-          multiplicacao = 0;
-          divisao = 0;
+        case "acaoPorcentagem":
+          executarOperacaoPendente();
+          operacaoPendente = "porcentagem";
           break;
 
         case "acaoIgual":
-          if (numeroNumero !== 0) {
-            if (adicao) {
-              total = adicao + parseFloat(numeroString);
-            } else if (subtracao) {
-              total =  subtracao - parseFloat(numeroString);
-            } else if (multiplicacao) {
-              total = multiplicacao * parseFloat(numeroString);
-            } else if (divisao) {
-              total = divisao / parseFloat(numeroString);
-            } else if (porcento) {
-              total = porcento * parseFloat(numeroString);
-            }
-          }
+          executarOperacaoPendente();
+          operacaoPendente = null;
           break;  
         default:
       }
