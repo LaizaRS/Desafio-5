@@ -9,7 +9,7 @@ function atualizarP() {
   let multiplicacao = 0;
   let divisao = 0;
   let porcento = 0;
-  var total = 0;
+  var total = '0';
 
   var tabela = document.getElementById("minhaTabela");
 
@@ -75,9 +75,12 @@ function atualizarP() {
         case "acao9":
           adicionarNumero("9");
           break;
+        case "acaoPonto":
+          adicionarNumero(".");
+          break
 
         case "acaoAdicao":
-          numeroNumero = parseInt(numeroString);
+          numeroNumero = parseFloat(numeroString);
           numeroString = '';
           adicao += numeroNumero;
           subtracao = 0;
@@ -86,7 +89,7 @@ function atualizarP() {
           porcento = 0;
           break;
         case "acaoSubtracao":
-          numeroNumero = parseInt(numeroString);
+          numeroNumero = parseFloat(numeroString);
           numeroString = '';
           subtracao += numeroNumero;
           adicao = 0;
@@ -95,7 +98,7 @@ function atualizarP() {
           porcento = 0;
           break;
         case "acaoMultiplicacao":
-          numeroNumero = parseInt(numeroString);
+          numeroNumero = parseFloat(numeroString);
           numeroString = '';
           multiplicacao = numeroNumero;
           adicao = 0;
@@ -104,7 +107,7 @@ function atualizarP() {
           porcento = 0;
           break;
         case "acaoDivisao":
-          numeroNumero = parseInt(numeroString);
+          numeroNumero = parseFloat(numeroString);
           numeroString = '';
           divisao += numeroNumero;
           adicao = 0;
@@ -113,7 +116,7 @@ function atualizarP() {
           porcento = 0;
           break;
         case "acaoPorcento":
-          numeroNumero = parseInt(numeroString) / 100;
+          numeroNumero = parseFloat(numeroString) / 100;
           numeroString = '';
           porcento += numeroNumero;
           adicao = 0;
@@ -125,15 +128,15 @@ function atualizarP() {
         case "acaoIgual":
           if (numeroNumero !== 0) {
             if (adicao) {
-              total = adicao + parseInt(numeroString);
+              total = adicao + parseFloat(numeroString);
             } else if (subtracao) {
-              total =  subtracao - parseInt(numeroString);
+              total =  subtracao - parseFloat(numeroString);
             } else if (multiplicacao) {
-              total = multiplicacao * parseInt(numeroString);
+              total = multiplicacao * parseFloat(numeroString);
             } else if (divisao) {
-              total = divisao / parseInt(numeroString) ;
+              total = divisao / parseFloat(numeroString);
             } else if (porcento) {
-              total = porcento * parseInt(numeroString);
+              total = porcento * parseFloat(numeroString);
             }
           }
           break;  
